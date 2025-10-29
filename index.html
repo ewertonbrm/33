@@ -26,6 +26,9 @@
             </select>
         </div>
 
+        <!-- O box de erro agora é controlado totalmente pelo JS -->
+        <div id="error-message" class="message-box" style="display: none;"></div>
+
         <div class="info-card">
             <p>Próximo Ônibus Chegando às:</p>
             <h3 id="next-time-display">--:--</h3>
@@ -38,8 +41,6 @@
                 <span id="subsequent-time-display">--:--</span>
             </div>
         </div>
-        
-        <div id="error-message" class="message-box" style="display: none;"></div>
         
         <button id="refresh-button">Atualizar Horário Agora</button>
         
