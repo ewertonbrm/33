@@ -1,0 +1,159 @@
+/* Reset Básico */
+body, h1, h2, h3, p, select, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f7f9;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+header {
+    background-color: #303F9F;
+    color: white;
+    padding: 20px 15px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+/* Main Layout */
+main {
+    flex-grow: 1;
+    padding: 20px 15px;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Seletor de Linha */
+.selector-container {
+    margin-bottom: 25px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.selector-container label {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+#route-selector {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    appearance: none; /* Remove estilo nativo em alguns navegadores */
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+#route-selector:focus {
+    outline: none;
+    border-color: #303F9F;
+    box-shadow: 0 0 0 3px rgba(48, 63, 159, 0.2);
+}
+
+/* Cartões de Informação */
+.info-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-left: 5px solid #4CAF50; /* Destaque primário */
+}
+
+.info-card h3 {
+    font-size: 2.5rem;
+    color: #303F9F;
+    margin: 10px 0;
+    font-weight: 800;
+}
+
+.info-card p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.secondary-info {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #eee;
+}
+
+.secondary-info p {
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.secondary-info span {
+    font-weight: 700;
+    color: #4CAF50;
+}
+
+/* Botão de Atualização */
+#refresh-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #303F9F;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 4px #1a237e;
+    margin-bottom: 20px;
+}
+
+#refresh-button:active {
+    background-color: #1a237e;
+    transform: translateY(2px);
+    box-shadow: 0 2px #1a237e;
+}
+
+/* Mensagem de Erro/Status */
+.message-box {
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #ffebee;
+    color: #d32f2f;
+    border: 1px solid #ef9a9a;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+/* Status Offline */
+.offline-status {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #999;
+    padding: 10px;
+    border-top: 1px solid #eee;
+}
+
+.online { color: #4CAF50; font-weight: bold; }
+.offline { color: #d32f2f; font-weight: bold; }

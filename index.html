@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Próximo Ônibus PWA</title>
+    
+    <!-- Configurações PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#303F9F">
+    
+    <!-- Estilos -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Próximo Ônibus</h1>
+    </header>
+    
+    <main>
+        <div class="selector-container">
+            <label for="route-selector">Escolha a Linha:</label>
+            <select id="route-selector">
+                <!-- Opções serão preenchidas pelo JavaScript -->
+            </select>
+        </div>
+
+        <div class="info-card">
+            <p>Próximo Ônibus Chegando às:</p>
+            <h3 id="next-time-display">--:--</h3>
+            
+            <p>Tempo Restante:</p>
+            <h2 id="countdown-display">Selecione uma linha.</h2>
+
+            <div class="secondary-info">
+                <p>Próxima Partida Depois Desta:</p>
+                <span id="subsequent-time-display">--:--</span>
+            </div>
+        </div>
+        
+        <div id="error-message" class="message-box" style="display: none;"></div>
+        
+        <button id="refresh-button">Atualizar Horário Agora</button>
+        
+        <p class="offline-status">Status: <span id="status-message">Carregando...</span></p>
+    </main>
+
+    <!-- Lógica da Aplicação -->
+    <script src="app.js"></script>
+</body>
+</html>
+
