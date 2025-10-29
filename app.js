@@ -42,23 +42,44 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------------------
     // 3. Funções de Manipulação de Tempo e Dados
     // ----------------------------------------------------------------
+    
+    /**
+     * Exibe ou esconde uma mensagem de erro na interface.
+     */
+    function displayError(message) {
+        if (message) {
+            ERROR_MESSAGE.textContent = message;
+            ERROR_MESSAGE.style.display = 'block'; 
+        } else {
+            ERROR_MESSAGE.textContent = '';
+            ERROR_MESSAGE.style.display = 'none'; 
+        }
+    }
 
     /**
      * Carrega os dados do ônibus a partir do data.json.
      * @returns {Promise<Array>} Lista de rotas de ônibus.
      */
     async function loadData() {
+        displayError(''); // Limpa erros anteriores
         try {
             const response = await fetch('/data.json');
             if (!response.ok) {
-                throw new Error('Falha ao carregar data.json');
+                throw new Error('Falha ao carregar data.json: Resposta de rede não foi OK.');
             }
             allRoutes = await response.json();
-            populateRouteSelector(allRoutes);
+            
+            if (allRoutes && allRoutes.length > 0) {
+                 populateRouteSelector(allRoutes);
+            } else {
+                 throw new Error('O arquivo data.json está vazio ou mal formatado.');
+            }
+            
             return allRoutes;
         } catch (error) {
             console.error("Erro ao carregar dados:", error);
-            displayError('Não foi possível carregar os dados dos horários. Verifique sua conexão ou cache.');
+            // Mensagem de erro mais clara para o usuário
+            displayError('ERRO: Não foi possível carregar os horários. Tente atualizar a página ou verifique o cache.');
             return [];
         }
     }
@@ -87,6 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Configura o evento para recarregar ao mudar a linha
+        // Este é o passo crucial para o seu app funcionar após a seleção.
+        SELECTOR.removeEventListener('change', calculateNextBus); // Evita duplicidade
         SELECTOR.addEventListener('change', calculateNextBus);
     }
 
@@ -191,10 +214,13 @@ document.addEventListener('DOMContentLoaded', () => {
             let countdownText = '';
 
             if (days > 0) {
+                // Se for no dia seguinte, mostra dias e horas
                 countdownText = `${days}d, ${hours}h, ${minutes}m, ${seconds}s`;
             } else if (hours > 0) {
+                // Se for neste dia, mostra horas, minutos e segundos
                 countdownText = `${hours}h, ${minutes}m e ${seconds}s`;
             } else {
+                // Se for na próxima hora, mostra minutos e segundos
                 countdownText = `${minutes}m e ${seconds}s`;
             }
 
@@ -206,22 +232,16 @@ document.addEventListener('DOMContentLoaded', () => {
         countdownInterval = setInterval(updateCountdown, 1000);
     }
 
-    /**
-     * Exibe uma mensagem de erro na interface.
-     */
-    function displayError(message) {
-        ERROR_MESSAGE.textContent = message;
-    }
-
     // ----------------------------------------------------------------
     // 4. Inicialização
     // ----------------------------------------------------------------
 
     // Carrega os dados e inicia o cálculo
     loadData().then(() => {
-        // Inicializa o primeiro cálculo se o usuário selecionar a linha
-        if (SELECTOR.value) {
-             calculateNextBus();
+        // Tenta selecionar a primeira linha por padrão se os dados carregarem
+        if (allRoutes.length > 0) {
+            SELECTOR.value = allRoutes[0].id;
+            calculateNextBus();
         }
     });
 
