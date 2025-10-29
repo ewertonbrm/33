@@ -1,5 +1,4 @@
-const CACHE_NAME = 'bus-pwa-v2';
-// Incluindo todos os arquivos da aplicação
+const CACHE_NAME = 'bus-pwa-v3'; // Versão atualizada para forçar o recarregamento
 const urlsToCache = [
   '/',
   '/index.html',
@@ -11,7 +10,7 @@ const urlsToCache = [
 
 // Instalação: Coloca todos os arquivos essenciais no cache.
 self.addEventListener('install', event => {
-  console.log('[Service Worker] Instalando e armazenando em cache...');
+  console.log('[Service Worker] Instalando e armazenando em cache (V3)...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
@@ -24,13 +23,14 @@ self.addEventListener('install', event => {
 
 // Ativação: Limpa caches antigos, garantindo que apenas a versão atualizada permaneça.
 self.addEventListener('activate', event => {
-  console.log('[Service Worker] Ativando e limpando caches antigos...');
+  console.log('[Service Worker] Ativando e limpando caches antigos (V3)...');
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
+            console.log('Deletando cache antigo:', cacheName);
             return caches.delete(cacheName);
           }
         })
