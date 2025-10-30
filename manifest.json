@@ -1,7 +1,7 @@
 {
   "name": "Próximo Ônibus",
-  "short_name": "Bus Time",
-  "description": "Visualize o countdown e os horários offline para o próximo ônibus.",
+  "short_name": "Próximo Ônibus",
+  "description": "Visualize o countdown e os horários para o próximo ônibus.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
