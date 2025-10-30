@@ -7,45 +7,51 @@
     
     <!-- Configurações PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#303F9F">
+    <meta name="theme-color" content="#333333">
+    
+    <!-- Fonte Oswald -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <!-- Estilos -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Próximo Ônibus</h1>
+        <!-- Ícone 192x192 no topo, antes do título -->
+        <img src="https://placehold.co/192x192/000000/FFFFFF?text=BUS" alt="Ícone de Ônibus" class="header-icon">
+        <h1>PRÓXIMO ÔNIBUS</h1>
     </header>
     
     <main>
         <div class="selector-container">
-            <label for="route-selector">Escolha a Linha:</label>
+            <label for="route-selector">SELECIONE A LINHA</label>
             <select id="route-selector">
                 <!-- Opções serão preenchidas pelo JavaScript -->
             </select>
         </div>
 
-        <!-- O box de erro agora é controlado totalmente pelo JS -->
         <div id="error-message" class="message-box" style="display: none;"></div>
 
         <div class="info-card">
-            <p>Próximo Ônibus Chegando às:</p>
+            <p class="label">CHEGADA DO PRÓXIMO ÔNIBUS</p>
             <h3 id="next-time-display">--:--</h3>
             
-            <p>Tempo Restante:</p>
+            <p class="label countdown-label">FALTA APENAS</p>
             <h2 id="countdown-display">Selecione uma linha.</h2>
 
             <div class="secondary-info">
-                <p>Próxima Partida Depois Desta:</p>
+                <p>PRÓXIMA PARTIDA SUBSEQUENTE</p>
                 <span id="subsequent-time-display">--:--</span>
             </div>
         </div>
         
-        <button id="refresh-button">Atualizar Horário Agora</button>
+        <button id="refresh-button">ATUALIZAR AGORA</button>
         
-        <p class="offline-status">Status: <span id="status-message">Carregando...</span></p>
     </main>
+    
+    <footer class="data-source">
+        <p>Horários do Cittamobi de 29/10/25</p>
+    </footer>
 
     <!-- Lógica da Aplicação -->
     <script src="app.js"></script>
