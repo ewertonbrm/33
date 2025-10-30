@@ -38,39 +38,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const SUBSEQUENT_TIME_DISPLAY = document.getElementById('subsequent-time-display');
     const ERROR_MESSAGE = document.getElementById('error-message');
     const REFRESH_BUTTON = document.getElementById('refresh-button');
-    const STATUS_MESSAGE = document.getElementById('status-message');
+    // STATUS_MESSAGE removido, não é mais usado na interface
 
     let allRoutes = [];
     let countdownInterval;
 
     // ----------------------------------------------------------------
-    // 3. Service Worker e Status Offline
+    // 3. Service Worker
     // ----------------------------------------------------------------
 
-    // 3.1. Registro do Service Worker para PWA
+    // Registro do Service Worker para PWA
     if ('serviceWorker' in navigator) {
-        // O cache do Service Worker (SW) foi mantido para a estrutura PWA, 
-        // mesmo que o data.json não seja mais crítico.
         navigator.serviceWorker.register('/service-worker.js')
             .then(reg => console.log('Service Worker Registrado!', reg))
             .catch(err => console.error('Falha no Registro do Service Worker:', err));
     }
-
-    // 3.2. Atualizar Status de Conexão
-    function updateConnectionStatus() {
-        if (navigator.onLine) {
-            STATUS_MESSAGE.textContent = 'Online';
-            STATUS_MESSAGE.className = 'online';
-        } else {
-            STATUS_MESSAGE.textContent = 'Offline';
-            STATUS_MESSAGE.className = 'offline';
-        }
-    }
-
-    window.addEventListener('online', updateConnectionStatus);
-    window.addEventListener('offline', updateConnectionStatus);
-    updateConnectionStatus();
-
+    
     // ----------------------------------------------------------------
     // 4. Funções de Manipulação de Tempo e Dados
     // ----------------------------------------------------------------
@@ -93,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
      * @returns {Promise<Array>} Lista de rotas de ônibus.
      */
     async function loadData() {
-        // Não precisamos mais do fetch. Carregamos diretamente.
         allRoutes = STATIC_BUS_ROUTES;
         
         if (allRoutes && allRoutes.length > 0) {
@@ -110,17 +92,15 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {Array} routes - Lista de objetos de rotas.
      */
     function populateRouteSelector(routes) {
-        SELECTOR.innerHTML = ''; // Limpa as opções existentes
+        SELECTOR.innerHTML = ''; 
         
-        // Adiciona a opção padrão
         const defaultOption = document.createElement('option');
         defaultOption.value = '';
-        defaultOption.textContent = 'Selecione a Linha...';
+        defaultOption.textContent = 'SELECIONE A LINHA...';
         defaultOption.disabled = true;
         defaultOption.selected = true;
         SELECTOR.appendChild(defaultOption);
 
-        // Adiciona as rotas carregadas
         routes.forEach(route => {
             const option = document.createElement('option');
             option.value = route.id;
@@ -128,7 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
             SELECTOR.appendChild(option);
         });
 
-        // Configura o evento para recarregar ao mudar a linha
         SELECTOR.removeEventListener('change', calculateNextBus);
         SELECTOR.addEventListener('change', calculateNextBus);
     }
@@ -143,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!route) return { nextTime: null, subsequentTime: null };
 
         const now = new Date();
-        // Converte a hora atual para minutos totais do dia para comparação
         const nowMinutes = now.getHours() * 60 + now.getMinutes();
 
         let nextTime = null;
@@ -154,9 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const busMinutes = parseInt(hourStr) * 60 + parseInt(minuteStr);
 
             if (busMinutes > nowMinutes) {
-                // 1. Encontrou o próximo horário
                 nextTime = route.times[i];
-                // 2. Encontra o horário subsequente (se houver)
                 if (i + 1 < route.times.length) {
                     subsequentTime = route.times[i + 1];
                 }
@@ -164,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // 3. Caso todos os horários tenham passado (fim do dia), o próximo é o primeiro do dia seguinte
+        // Loop para o dia seguinte
         if (!nextTime && route.times.length > 0) {
             nextTime = route.times[0]; 
             subsequentTime = route.times.length > 1 ? route.times[1] : null;
@@ -177,7 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
      * Inicia ou reinicia a contagem regressiva e atualiza a interface.
      */
     function calculateNextBus() {
-        // Limpa qualquer contagem regressiva anterior
         if (countdownInterval) {
             clearInterval(countdownInterval);
         }
@@ -186,25 +161,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedRouteId = SELECTOR.value;
         if (!selectedRouteId) {
             NEXT_TIME_DISPLAY.textContent = '--:--';
-            COUNTDOWN_DISPLAY.textContent = 'Selecione uma linha.';
-            SUBSEQUENT_TIME_DISPLAY.textContent = 'Nenhum';
+            COUNTDOWN_DISPLAY.textContent = 'SELECIONE UMA LINHA.';
+            SUBSEQUENT_TIME_DISPLAY.textContent = 'NENHUM';
             return;
         }
 
         const { nextTime, subsequentTime } = findNextTimes(selectedRouteId);
 
         if (!nextTime) {
-            NEXT_TIME_DISPLAY.textContent = 'Fim';
-            COUNTDOWN_DISPLAY.textContent = 'Nenhum horário disponível para hoje.';
-            SUBSEQUENT_TIME_DISPLAY.textContent = 'Nenhum';
+            NEXT_TIME_DISPLAY.textContent = 'FIM';
+            COUNTDOWN_DISPLAY.textContent = 'NENHUM HORÁRIO DISPONÍVEL.';
+            SUBSEQUENT_TIME_DISPLAY.textContent = 'NENHUM';
             return;
         }
 
         // Exibe os horários
         NEXT_TIME_DISPLAY.textContent = nextTime;
-        SUBSEQUENT_TIME_DISPLAY.textContent = subsequentTime ? subsequentTime : 'Fim da Linha (só amanhã)';
+        SUBSEQUENT_TIME_DISPLAY.textContent = subsequentTime ? subsequentTime : 'FIM DA LINHA';
 
-        // Configuração do contador
         const [nextHour, nextMinute] = nextTime.split(':').map(Number);
         
         function updateCountdown() {
@@ -212,15 +186,14 @@ document.addEventListener('DOMContentLoaded', () => {
             let nextBus = new Date(now);
             nextBus.setHours(nextHour, nextMinute, 0, 0);
 
-            // Se o horário for menor que o horário atual, ele é o primeiro do dia seguinte
             if (nextBus < now) {
+                // Se for o primeiro horário do dia (após a meia noite)
                 nextBus.setDate(nextBus.getDate() + 1);
             }
 
             const diff = nextBus.getTime() - now.getTime();
             
             if (diff <= 0) {
-                // O ônibus chegou/partiu, recalcula para o próximo do dia
                 clearInterval(countdownInterval);
                 calculateNextBus();
                 return;
@@ -235,17 +208,16 @@ document.addEventListener('DOMContentLoaded', () => {
             let countdownText = '';
 
             if (days > 0) {
-                countdownText = `${days}d, ${hours}h, ${minutes}m, ${seconds}s`;
+                countdownText = `${days}D ${hours}H ${minutes}M ${seconds}S`;
             } else if (hours > 0) {
-                countdownText = `${hours}h, ${minutes}m e ${seconds}s`;
+                countdownText = `${hours}H ${minutes}M ${seconds}S`;
             } else {
-                countdownText = `${minutes}m e ${seconds}s`;
+                countdownText = `${minutes} MINUTOS E ${seconds} SEGUNDOS`;
             }
 
             COUNTDOWN_DISPLAY.textContent = countdownText;
         }
 
-        // Executa a atualização imediatamente e depois a cada segundo
         updateCountdown();
         countdownInterval = setInterval(updateCountdown, 1000);
     }
@@ -254,15 +226,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Inicialização
     // ----------------------------------------------------------------
 
-    // Carrega os dados e tenta selecionar a primeira linha
     loadData().then(() => {
         if (allRoutes.length > 0) {
-            // Seleciona a primeira linha por padrão e inicia o cálculo
+            // Tenta forçar a seleção da primeira linha para facilitar o primeiro uso
             SELECTOR.value = allRoutes[0].id;
             calculateNextBus();
         }
     });
 
-    // Adiciona evento de recálculo ao botão
     REFRESH_BUTTON.addEventListener('click', calculateNextBus);
 });
