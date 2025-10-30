@@ -22,6 +22,15 @@ header {
     padding: 20px 15px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Garante que o conteúdo interno do header não ultrapasse a largura máxima */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.header-content {
+    max-width: 450px; /* Limita a largura do conteúdo do cabeçalho */
+    width: 100%;
 }
 
 .header-icon {
@@ -42,7 +51,7 @@ header h1 {
 main {
     flex-grow: 1;
     padding: 25px 15px;
-    max-width: 450px; /* Mais focado para mobile */
+    max-width: 450px; /* Largura máxima para centralizar o conteúdo */
     width: 100%;
     margin: 0 auto;
 }
@@ -88,7 +97,7 @@ main {
 .info-card {
     background-color: #FFFFFF;
     border-radius: 8px;
-    padding: 25px 20px;
+    padding: 20px 15px; /* Redução do padding para ser mais compacto */
     margin-bottom: 25px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -180,10 +189,14 @@ main {
 /* Footer (Fonte dos Dados) */
 .data-source {
     text-align: center;
-    padding: 15px;
-    margin-top: auto; /* Empurra para o final da página */
+    padding: 8px 15px; /* Redução de padding vertical */
+    margin-top: auto;
     border-top: 1px solid #EEEEEE;
     background-color: #FAFAFA;
+    /* Centraliza e limita a largura do footer também */
+    max-width: 450px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .data-source p {
