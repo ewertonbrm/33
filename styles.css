@@ -1,14 +1,14 @@
-/* Reset Básico */
-body, h1, h2, h3, p, select, button {
+/* Reset Básico e Fonte Oswald */
+body, h1, h2, h3, p, select, button, label {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f4f7f9;
-    color: #333;
+    background-color: #FFFFFF;
+    color: #333333;
     line-height: 1.6;
     min-height: 100vh;
     display: flex;
@@ -17,23 +17,32 @@ body {
 
 /* Header */
 header {
-    background-color: #303F9F;
+    background-color: #000000;
     color: white;
     padding: 20px 15px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-icon {
+    width: 60px; /* Redimensionamento do ícone */
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    border: 3px solid white;
 }
 
 header h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 2px;
 }
 
 /* Main Layout */
 main {
     flex-grow: 1;
-    padding: 20px 15px;
-    max-width: 600px;
+    padding: 25px 15px;
+    max-width: 450px; /* Mais focado para mobile */
     width: 100%;
     margin: 0 auto;
 }
@@ -41,119 +50,144 @@ main {
 /* Seletor de Linha */
 .selector-container {
     margin-bottom: 25px;
-    background-color: #fff;
+    background-color: #F8F8F8;
     padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+    border: 1px solid #DDDDDD;
 }
 
 .selector-container label {
     display: block;
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 5px;
+    font-size: 0.8rem;
+    color: #555555;
+    margin-bottom: 10px;
+    font-weight: 500;
 }
 
 #route-selector {
     width: 100%;
     padding: 12px 15px;
     font-size: 1rem;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    appearance: none; /* Remove estilo nativo em alguns navegadores */
-    background-color: #f9f9f9;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    appearance: none;
+    background-color: white;
     cursor: pointer;
-    transition: border-color 0.3s;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 #route-selector:focus {
     outline: none;
-    border-color: #303F9F;
-    box-shadow: 0 0 0 3px rgba(48, 63, 159, 0.2);
+    border-color: #000000;
+    box-shadow: 0 0 0 1px #000000;
 }
 
 /* Cartões de Informação */
 .info-card {
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 25px 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
-    border-left: 5px solid #4CAF50; /* Destaque primário */
+    border: 1px solid #E0E0E0;
+}
+
+.label {
+    font-size: 0.9rem;
+    color: #555555;
+    margin-bottom: 5px;
+    font-weight: 400;
 }
 
 .info-card h3 {
-    font-size: 2.5rem;
-    color: #303F9F;
-    margin: 10px 0;
-    font-weight: 800;
+    font-size: 3rem;
+    color: #000000;
+    margin: 0 0 20px 0;
+    font-weight: 700;
+    letter-spacing: 2px;
 }
 
-.info-card p {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 5px;
+#countdown-display {
+    font-size: 1.8rem;
+    color: #000000;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+}
+
+.countdown-label {
+    margin-top: 15px;
 }
 
 .secondary-info {
-    margin-top: 15px;
+    margin-top: 20px;
     padding-top: 15px;
-    border-top: 1px dashed #eee;
+    border-top: 1px solid #EEEEEE;
 }
 
 .secondary-info p {
-    font-size: 1.1rem;
-    color: #444;
+    font-size: 0.8rem;
+    color: #777777;
+    margin-bottom: 5px;
 }
 
 .secondary-info span {
-    font-weight: 700;
-    color: #4CAF50;
+    font-weight: 500;
+    color: #333333;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
 }
 
 /* Botão de Atualização */
 #refresh-button {
     width: 100%;
     padding: 15px;
-    background-color: #303F9F;
+    background-color: #000000;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 4px;
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-    box-shadow: 0 4px #1a237e;
-    margin-bottom: 20px;
+    transition: background-color 0.1s, transform 0.1s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 3px #333333;
 }
 
 #refresh-button:active {
-    background-color: #1a237e;
+    background-color: #333333;
     transform: translateY(2px);
-    box-shadow: 0 2px #1a237e;
+    box-shadow: 0 1px #333333;
 }
 
-/* Mensagem de Erro/Status */
+/* Mensagem de Erro */
 .message-box {
     text-align: center;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #ffebee;
-    color: #d32f2f;
-    border: 1px solid #ef9a9a;
-    font-weight: 500;
-    margin-top: 20px;
-}
-
-/* Status Offline */
-.offline-status {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #999;
     padding: 10px;
-    border-top: 1px solid #eee;
+    border-radius: 4px;
+    background-color: #f7eaea;
+    color: #cc0000;
+    border: 1px solid #e0baba;
+    font-weight: 500;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
 }
 
-.online { color: #4CAF50; font-weight: bold; }
-.offline { color: #d32f2f; font-weight: bold; }
+/* Footer (Fonte dos Dados) */
+.data-source {
+    text-align: center;
+    padding: 15px;
+    margin-top: auto; /* Empurra para o final da página */
+    border-top: 1px solid #EEEEEE;
+    background-color: #FAFAFA;
+}
+
+.data-source p {
+    font-size: 0.8rem; /* Fonte menor */
+    color: #777777;
+    font-weight: 300;
+}
