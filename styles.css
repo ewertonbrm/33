@@ -13,36 +13,27 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    /* CORREÇÃO CRÍTICA PARA SOBRA DE LARGURA */
     width: 100%;
+    /* CORREÇÃO CRÍTICA PARA SOBRA DE LARGURA */
     overflow-x: hidden;
     /* FIM DA CORREÇÃO */
-}
-
-/* Largura Máxima Consistente para Conteúdo */
-.content-max-width {
-    max-width: 450px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 15px; /* Adicionado padding lateral para conteúdo interno */
 }
 
 /* Header */
 header {
     background-color: #000000;
     color: white;
-    padding: 20px 0; /* Removido padding horizontal, agora controlado pelo content-max-width */
+    padding: 20px 0; /* Padding vertical, horizontal zero */
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 100%;
 }
 
 .header-content {
-    /* Usa a classe de largura máxima para centralizar o conteúdo */
-    max-width: 450px;
+    max-width: 450px; /* Limita a largura do conteúdo do cabeçalho */
     width: 100%;
     margin: 0 auto;
-    padding: 0 15px; /* Padding interno para o conteúdo do header */
+    padding: 0 20px; /* Padding lateral de 20px para o conteúdo interno do header */
 }
 
 .header-icon {
@@ -62,8 +53,8 @@ header h1 {
 /* Main Layout */
 main {
     flex-grow: 1;
-    padding: 25px 0; /* Padding horizontal zero, agora controlado pela classe content-max-width */
-    max-width: 450px; 
+    padding: 25px 20px; /* Padding lateral de 20px para toda a área de conteúdo */
+    max-width: 450px; /* Largura máxima para centralizar o conteúdo */
     width: 100%;
     margin: 0 auto;
 }
@@ -201,11 +192,10 @@ main {
 /* Footer (Fonte dos Dados) */
 .data-source {
     text-align: center;
-    padding: 8px 15px;
+    padding: 8px 0; /* Padding vertical, horizontal zero */
     margin-top: auto;
     border-top: 1px solid #EEEEEE;
     background-color: #FAFAFA;
-    /* Garante que o footer não cause overflow-x */
     width: 100%; 
 }
 
@@ -213,7 +203,8 @@ main {
     font-size: 0.8rem;
     color: #777777;
     font-weight: 300;
-    /* Centraliza o texto do rodapé e limita a largura do contêiner interno */
+    /* Adiciona padding interno ao texto do rodapé e centraliza/limita a largura */
     max-width: 450px;
+    padding: 0 20px; 
     margin: 0 auto;
 }
