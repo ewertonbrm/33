@@ -2,7 +2,7 @@
 body, h1, h2, h3, p, select, button, label {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura/altura */
     font-family: 'Oswald', sans-serif;
 }
 
@@ -13,28 +13,40 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    /* CORREÇÃO CRÍTICA PARA SOBRA DE LARGURA */
+    width: 100%;
+    overflow-x: hidden;
+    /* FIM DA CORREÇÃO */
+}
+
+/* Largura Máxima Consistente para Conteúdo */
+.content-max-width {
+    max-width: 450px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px; /* Adicionado padding lateral para conteúdo interno */
 }
 
 /* Header */
 header {
     background-color: #000000;
     color: white;
-    padding: 20px 15px;
+    padding: 20px 0; /* Removido padding horizontal, agora controlado pelo content-max-width */
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Garante que o conteúdo interno do header não ultrapasse a largura máxima */
     width: 100%;
-    display: flex;
-    justify-content: center;
 }
 
 .header-content {
-    max-width: 450px; /* Limita a largura do conteúdo do cabeçalho */
+    /* Usa a classe de largura máxima para centralizar o conteúdo */
+    max-width: 450px;
     width: 100%;
+    margin: 0 auto;
+    padding: 0 15px; /* Padding interno para o conteúdo do header */
 }
 
 .header-icon {
-    width: 60px; /* Redimensionamento do ícone */
+    width: 60px;
     height: 60px;
     border-radius: 50%;
     margin-bottom: 5px;
@@ -50,8 +62,8 @@ header h1 {
 /* Main Layout */
 main {
     flex-grow: 1;
-    padding: 25px 15px;
-    max-width: 450px; /* Largura máxima para centralizar o conteúdo */
+    padding: 25px 0; /* Padding horizontal zero, agora controlado pela classe content-max-width */
+    max-width: 450px; 
     width: 100%;
     margin: 0 auto;
 }
@@ -97,7 +109,7 @@ main {
 .info-card {
     background-color: #FFFFFF;
     border-radius: 8px;
-    padding: 20px 15px; /* Redução do padding para ser mais compacto */
+    padding: 20px 15px;
     margin-bottom: 25px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -189,18 +201,19 @@ main {
 /* Footer (Fonte dos Dados) */
 .data-source {
     text-align: center;
-    padding: 8px 15px; /* Redução de padding vertical */
+    padding: 8px 15px;
     margin-top: auto;
     border-top: 1px solid #EEEEEE;
     background-color: #FAFAFA;
-    /* Centraliza e limita a largura do footer também */
-    max-width: 450px;
-    width: 100%;
-    margin: 0 auto;
+    /* Garante que o footer não cause overflow-x */
+    width: 100%; 
 }
 
 .data-source p {
-    font-size: 0.8rem; /* Fonte menor */
+    font-size: 0.8rem;
     color: #777777;
     font-weight: 300;
+    /* Centraliza o texto do rodapé e limita a largura do contêiner interno */
+    max-width: 450px;
+    margin: 0 auto;
 }
