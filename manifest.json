@@ -1,11 +1,11 @@
 {
-  "name": "33",
-  "short_name": "33",
-  "description": "Visualize os horários e o countdown para o próximo ônibus.",
-  "start_url": "/",
+  "name": "Próximo Ônibus",
+  "short_name": "Bus Time",
+  "description": "Visualize o countdown e os horários offline para o próximo ônibus.",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#303F9F",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "/icon-192x192.png",
@@ -19,4 +19,3 @@
     }
   ]
 }
-
