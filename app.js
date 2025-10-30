@@ -18,12 +18,16 @@ let countdownInterval = null;
  * 1. REGISTRO DO SERVICE WORKER (Torna o app instalável)
  * ------------------------------------------------------------------
  * O Service Worker é essencial para o funcionamento offline e instalação.
+ * Este código é executado imediatamente ao carregar o script.
  */
 function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(reg => console.log('Service Worker Registrado!', reg))
+        // O escopo deve ser a raiz do seu site
+        navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+            .then(reg => console.log('Service Worker Registrado com sucesso! Scope:', reg.scope))
             .catch(err => console.log('Falha no registro do Service Worker:', err));
+    } else {
+        console.log('Navegador não suporta Service Worker.');
     }
 }
 
@@ -220,7 +224,7 @@ function startUpdateCycle(forceRefresh = false) {
         }
         
         // Se a contagem regressiva acabar, reinicia o ciclo para buscar o próximo ônibus de verdade.
-        if (msUntilNext < 1000) {
+        if (msUntilNext !== null && msUntilNext < 1000) {
              startUpdateCycle(true); 
         }
     };
@@ -240,8 +244,6 @@ function startUpdateCycle(forceRefresh = false) {
  * Preenche o seletor com as rotas e inicia o ciclo.
  */
 function initializeApp() {
-    registerServiceWorker(); // REGISTRO DO PWA
-
     try {
         allRoutesData = loadData();
         
@@ -279,6 +281,9 @@ function initializeApp() {
         displayError(`Falha ao processar os dados: ${e.message}`);
     }
 }
+
+// Inicia o Service Worker imediatamente
+registerServiceWorker();
 
 // Inicia a aplicação quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', initializeApp);
