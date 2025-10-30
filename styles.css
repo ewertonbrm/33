@@ -1,39 +1,47 @@
 /* Reset Básico e Fonte Oswald */
-body, h1, h2, h3, p, select, button, label {
+* { /* Reset universal para garantir box-sizing em todos os elementos */
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura/altura */
-    font-family: 'Oswald', sans-serif;
+    box-sizing: border-box; 
 }
 
 body {
+    font-family: 'Oswald', sans-serif;
     background-color: #FFFFFF;
     color: #333333;
     line-height: 1.6;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    /* CORREÇÃO CRÍTICA PARA SOBRA DE LARGURA */
-    overflow-x: hidden;
-    /* FIM DA CORREÇÃO */
+    /* Correção para evitar o overflow horizontal do ambiente */
+    width: 100%; 
+    overflow-x: hidden; 
+}
+
+/* Largura Máxima Consistente para Conteúdo */
+/* Esta classe limita a largura estética (app-like) e centraliza o conteúdo */
+.content-wrapper {
+   
+    width: 100%; 
+    margin: 0 auto; 
+    padding: 0 15px; /* Espaçamento interno lateral (em `px` para evitar somar à largura `100%`) */
 }
 
 /* Header */
 header {
     background-color: #000000;
     color: white;
-    padding: 20px 0; /* Padding vertical, horizontal zero */
+    padding: 20px 0; 
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 100%;
+    width: 100%; 
 }
 
-.header-content {
-    max-width: 450px; /* Limita a largura do conteúdo do cabeçalho */
+.header-content { /* Usa a classe de largura máxima para centralizar o conteúdo */
+    max-width: 500px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 20px; /* Padding lateral de 20px para o conteúdo interno do header */
+    padding: 0 15px; /* Padding interno para o conteúdo do header */
 }
 
 .header-icon {
@@ -42,6 +50,7 @@ header {
     border-radius: 50%;
     margin-bottom: 5px;
     border: 3px solid white;
+    object-fit: cover; 
 }
 
 header h1 {
@@ -52,9 +61,10 @@ header h1 {
 
 /* Main Layout */
 main {
-    flex-grow: 1;
-    padding: 25px 20px; /* Padding lateral de 20px para toda a área de conteúdo */
-    max-width: 450px; /* Largura máxima para centralizar o conteúdo */
+    flex-grow: 1; 
+    padding: 25px 0; /* Padding vertical, horizontal 0 */
+    /* Garante que o main use a largura e padding do wrapper */
+    max-width: 500px; 
     width: 100%;
     margin: 0 auto;
 }
@@ -66,6 +76,7 @@ main {
     padding: 15px;
     border-radius: 6px;
     border: 1px solid #DDDDDD;
+    margin: 0 15px 25px 15px; /* Adiciona margem lateral para que não encoste nas bordas da tela */
 }
 
 .selector-container label {
@@ -105,6 +116,7 @@ main {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
     border: 1px solid #E0E0E0;
+    margin: 0 15px 25px 15px; /* Adiciona margem lateral para que não encoste nas bordas da tela */
 }
 
 .label {
@@ -155,7 +167,8 @@ main {
 
 /* Botão de Atualização */
 #refresh-button {
-    width: 100%;
+    width: calc(100% - 30px); /* 100% menos as margens laterais de 15px * 2 */
+    margin: 0 15px 25px 15px;
     padding: 15px;
     background-color: #000000;
     color: white;
@@ -187,24 +200,25 @@ main {
     font-weight: 500;
     margin-bottom: 20px;
     font-size: 0.9rem;
+    margin: 0 15px 20px 15px; /* Margem lateral */
 }
 
 /* Footer (Fonte dos Dados) */
-.data-source {
+footer.data-source { 
     text-align: center;
-    padding: 8px 0; /* Padding vertical, horizontal zero */
+    padding: 5px 0; /* Reduzido o padding vertical para eliminar espaço extra */
     margin-top: auto;
     border-top: 1px solid #EEEEEE;
     background-color: #FAFAFA;
     width: 100%; 
 }
 
-.data-source p {
+footer.data-source p {
     font-size: 0.8rem;
     color: #777777;
     font-weight: 300;
-    /* Adiciona padding interno ao texto do rodapé e centraliza/limita a largura */
-    max-width: 450px;
-    padding: 0 20px; 
+    /* Garante que o texto dentro do footer use o wrapper de largura máxima e padding lateral */
+    max-width: 500px;
+    padding: 0 15px; 
     margin: 0 auto;
 }
