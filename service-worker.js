@@ -4,7 +4,8 @@ const urlsToCache = [
   '/index.html',
   '/styles.css',
   '/app.js',
-  '/manifest.json'
+  '/manifest.json',
+  '/icon-192x192.png'
 ];
 
 // Instalação: Coloca todos os arquivos essenciais no cache.
